@@ -6,6 +6,57 @@ void main() {
   ));
 }
 
+class NameInput extends StatefulWidget {
+  @override
+  _NameInputScreenState createState() => _NameInputScreenState();
+}
+
+class _NameInputScreenState extends State<NameInputScreen> {
+  final TextEditingController _nameController = TextEditingController();
+
+  void _submitName() {
+    if (_nameController.text.isNotEmpty) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DigitalPetApp(petName: _nameController.text),
+        ),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Enter Pet Name'),
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              TextField(
+                controller: _nameController,
+                decoration: InputDecoration(
+                  labelText: 'Pet Name',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: _submitName,
+                child: Text('Submit'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class DigitalPetApp extends StatefulWidget {
   @override
   _DigitalPetAppState createState() => _DigitalPetAppState();
