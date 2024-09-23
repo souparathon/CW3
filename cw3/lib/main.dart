@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 void main() {
   runApp(MaterialApp(
@@ -18,6 +19,29 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
   String _currentImage = 'assets/cat.png';
   Color _petColor = Colors.yellow;
   String _petMood = "Neutral";
+  Timer? _hungerTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    _startHungerTimer();
+  }
+
+  @override
+  void dispose() {
+    _hungerTimer?.cancel();
+    super.dispose();
+  }
+
+  void _startHungerTimer() {
+    _hungerTimer = Timer.periodic(Duration(seconds: 30), (timer) {
+      setState(() {
+        hungerLevel = (hungerLevel + 5).clamp(0, 100);
+        print("Hunger Level: $hungerLevel");
+        _updatePetColorAndMood();
+      });
+    });
+  }
 
   // Function to increase happiness and update hunger when playing with the pet
   void _playWithPet() {
