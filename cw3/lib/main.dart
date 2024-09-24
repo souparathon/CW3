@@ -13,6 +13,7 @@ class DigitalPetApp extends StatefulWidget {
 }
 
 class _DigitalPetAppState extends State<DigitalPetApp> {
+
   String petName = "Juandissmo Magnifico";
   int happinessLevel = 50;
   int hungerLevel = 50;
@@ -61,6 +62,28 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
     });
   }
 
+=======
+  String petName = "Your Pet";
+  int happinessLevel = 50;
+  int hungerLevel = 50;
+
+  // Function to increase happiness and update hunger when playing with the pet
+  void _playWithPet() {
+    setState(() {
+      happinessLevel = (happinessLevel + 10).clamp(0, 100);
+      _updateHunger();
+    });
+  }
+
+  // Function to decrease hunger and update happiness when feeding the pet
+  void _feedPet() {
+    setState(() {
+      hungerLevel = (hungerLevel - 10).clamp(0, 100);
+      _updateHappiness();
+    });
+  }
+
+
   // Update happiness based on hunger level
   void _updateHappiness() {
     if (hungerLevel < 30) {
@@ -79,6 +102,7 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
     }
   }
 
+
   // Method to change the pet's color and mood based on the happiness level
   void _updatePetColorAndMood() {
     if (happinessLevel > 70) {
@@ -92,6 +116,8 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
       _petMood = "He is plotting your death";
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -108,21 +134,26 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
               style: TextStyle(fontSize: 20.0),
             ),
             SizedBox(height: 16.0),
+
             Image.asset(
               _currentImage,
               color: _petColor,
               colorBlendMode: BlendMode.color,
             ),
+
             Text(
               'Happiness Level: $happinessLevel',
               style: TextStyle(fontSize: 20.0),
             ),
+            SizedBox(height: 16.0),
             Text(
+
               'Mood: $_petMood',
               style: TextStyle(fontSize: 20.0),
             ),
             SizedBox(height: 16.0),
             Text(
+
               'Hunger Level: $hungerLevel',
               style: TextStyle(fontSize: 20.0),
             ),
